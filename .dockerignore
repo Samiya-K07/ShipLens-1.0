@@ -1,0 +1,8 @@
+# so that the image never contains your secrets or local junk:
+
+node_modules
+**/node_modules
+.git
+.env
+client/dist
+npm-debug.log

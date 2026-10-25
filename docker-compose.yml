@@ -1,3 +1,4 @@
+# adds the app next to the database
 services:
   db:
     image: postgres:16-alpine
@@ -14,6 +15,17 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  app:
+    build: .
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    ports:
+      - '3000:3000'
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   dbdata:
